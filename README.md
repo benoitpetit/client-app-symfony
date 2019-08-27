@@ -1,2 +1,2 @@
 # client-app-symfony
-juste une petit appli crud symfony
+juste une petite appli crud symfony
