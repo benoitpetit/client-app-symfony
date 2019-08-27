@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListClientsController!{% endblock %}
+
+
+{% block body %}
+
+<div class="container bg-light p-5">
+    <h1>{{ show.name }}</h1>
+    <p>{{ show.mail }}</p>
+    <a class="btn btn-danger" href="{{ path('delete_client',{'id':show.id}) }}">supprimer</a>
+</div>
+
+{% endblock %}
