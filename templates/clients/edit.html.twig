@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}editer le client{% endblock %}
+
+{% block body %}
+
+{# affiche message flash #}
+<div class="container bg-light p-5">
+{# {% for label, messages in app.flashes %}
+<div class="container">
+    <div class="alert alert-{{ label }}">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %} #}
+<h1 class="mb-3">Editer un client</h1>
+<hr>
+{# afficher le formulaire #}
+{{ form_start(form) }}
+
+
+<label for="">Nom</label>
+{{ form_widget(form.name, {'attr': {'class': 'form form-control form-control-sm col-4', 'placeholder': 'Votre nom'}}) }}
+<label class="mt-3">Prenom</label>
+{{ form_widget(form.firstname, {'attr': {'class': 'form form-control form-control-sm col-4', 'placeholder': 'Votre prenom'}}) }}
+<label class="mt-3">Adresse mail</label>
+{{ form_widget(form.mail, {'attr': {'class': 'form form-control form-control-sm col-4', 'placeholder': 'Votre adresse mail'}}) }}
+
+<button type="submit" class="btn btn-warning my-3"> Modifier </button>
+
+{{ form_end(form) }}
+
+
+
+</div>
+{% endblock %}

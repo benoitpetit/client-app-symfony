@@ -77,8 +77,8 @@ class ClientsController extends AbstractController
      * Afficher un client
      * @Route("/show/client/{id}", name="show_client")
      */
-    public function show($id, ClientsRepository $repo){
-        $show = $repo->findOneById($id);
+    public function show(Clients $clients, ClientsRepository $repo){
+        $show = $repo->findOneById($clients);
         return $this->render("clients/show.html.twig", [
             'show' => $show
         ]);
@@ -110,5 +110,42 @@ class ClientsController extends AbstractController
         // redirection
         return $this->redirectToRoute('list_clients');
     }
+
+/* -------------------------------------------------------------------------- */
+    /**
+     * editer un client
+     * @Route("/edit/client/{id}", name="edit_client")
+     */
+    public function edit(Clients $clients, Request $request, ObjectManager $manager){
+
+        $form = $this->createForm(ClientsType::class, $clients);
+
+        $data = $form->handleRequest($request);
+
+        if(!$clients){
+            throw $this->createNotFoundException('le client n\'existe pas');
+        }
+
+        // condition + envoi dans la bas de données
+        if ($form->isSubmitted() && $form->isValid()){
+                // on a besoin du manager doctrine qui est injecter dans la fonction
+                $manager->persist($clients);
+                $manager->flush();
+                // message flash
+                $this->addFlash(
+                    "success",
+                    "le client à bien atait modifier"
+                );
+                // redirection
+                return $this->redirectToRoute('list_clients');
+            }
+
+        return $this->render('clients/edit.html.twig', [
+            'form' => $form->createView(),
+            // 'clients' => $clients
+        ]);
+
+    }
+    
 
 }
